@@ -1,9 +1,11 @@
-import React from 'react';
+'use client';
 import { faEllipsisVertical, faMessage, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useToast } from '@/components/ui/use-toast';
 
 function HeaderSidebar() {
+    const { toast } = useToast();
     return (
         <div className="h-12 flex justify-between ">
             <div className="h-12 w-[25%] ml-2">
@@ -17,10 +19,20 @@ function HeaderSidebar() {
                     <FontAwesomeIcon
                         className="text-lg text-text2 p-2 hover:cursor-pointer hover:text-text1 "
                         icon={faMessage}
+                        onClick={() => {
+                            toast({
+                                description: 'Chức năng đang cập nhật!',
+                            });
+                        }}
                     />
                     <FontAwesomeIcon
                         className="text-lg text-text2 p-2 hover:cursor-pointer hover:text-text1 "
                         icon={faEllipsisVertical}
+                        onClick={() => {
+                            toast({
+                                description: 'Chức năng đang cập nhật!',
+                            });
+                        }}
                     />
                     <FontAwesomeIcon
                         className="text-lg text-text2 p-2 hover:cursor-pointer hover:text-text1 "

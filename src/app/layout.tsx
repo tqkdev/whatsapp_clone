@@ -3,6 +3,8 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { Toaster } from '@/components/ui/toaster';
+
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
@@ -22,6 +24,7 @@ export default function RootLayout({
                     <Sidebar />
                     {children}
                 </div>
+                <Toaster />
             </body>
         </html>
     );
