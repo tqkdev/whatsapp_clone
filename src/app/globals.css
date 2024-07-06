@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    body {
+        box-sizing: border-box;
+    }
     /* // Scrollbar CSS */
     html *::-webkit-scrollbar {
         border-radius: 0;

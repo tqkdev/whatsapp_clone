@@ -5,7 +5,7 @@ import SidebarSearch from './SidebarSearch/SidebarSearch';
 
 function Sidebar() {
     return (
-        <div className="w-full h-screen flex md:w-[45%] lg:w-[25%]">
+        <div className="w-full border-r h-screen flex md:w-[45%] lg:w-[35%]">
             <SettingSidebar />
 
             <div className="m-1 flex flex-col w-full">

@@ -20,7 +20,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className="h-full">
-                <div className="flex">
+                <div className="flex relative">
                     <Sidebar />
                     {children}
                 </div>

@@ -53,6 +53,7 @@ const config = {
                 text1: '#333',
                 text2: '#666',
                 text3: '#999',
+                text4: '#eeeeee',
             },
             borderRadius: {
                 lg: 'var(--radius)',

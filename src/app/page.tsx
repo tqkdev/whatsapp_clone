@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Home() {
     return (
-        <div className="hidden py-28 px-20 flex-grow h-screen md:block">
+        <div className="hidden pt-36 px-20 flex-grow h-screen md:block">
             <div>
                 <h1 className="text-center text-3xl">Chào mừng đến với Whatsapp!!!</h1>
             </div>
