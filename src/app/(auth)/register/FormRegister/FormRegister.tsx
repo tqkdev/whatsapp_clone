@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
 
 const formSchema = z.object({
     username: z.string().min(2).max(50),
@@ -94,6 +95,12 @@ function FormRegister() {
 
                     <Button type="submit">Register</Button>
                 </form>
+                <div className="text-center text-sm text-text2">
+                    <p>Do you already have an account?</p>
+                    <Link className="text-red-400 hover:text-red-500 hover:cursor-pointer" href={'/login'}>
+                        Login here
+                    </Link>
+                </div>
             </Form>
         </div>
     );
