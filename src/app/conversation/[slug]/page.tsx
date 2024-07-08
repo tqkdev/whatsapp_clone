@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import AutoResizeTextarea from './InputTextarea/InputTextarea';
 import Boxbar from './Boxbar/Boxbar';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 function Conversation() {
     const { toast } = useToast();
@@ -82,90 +83,93 @@ function Conversation() {
         setNewMessage('');
     };
     return (
-        <div className="w-full z-10 h-screen flex flex-col absolute md:relative">
-            <div className="h-20 w-full bg-white ">
-                <div className="flex justify-between">
-                    <div className="mx-3 flex">
-                        <div className="flex">
-                            <div className="py-[21px]">
-                                <Link href={'/'} className="h-6 block md:hidden">
-                                    <FontAwesomeIcon className="text-2xl mt-[6px] text-text2" icon={faAngleLeft} />
-                                </Link>
+        <div className="flex relative">
+            <Sidebar />
+            <div className="w-full z-10 h-screen flex flex-col absolute md:relative">
+                <div className="h-20 w-full bg-white ">
+                    <div className="flex justify-between">
+                        <div className="mx-3 flex">
+                            <div className="flex">
+                                <div className="py-[21px]">
+                                    <Link href={'/'} className="h-6 block md:hidden">
+                                        <FontAwesomeIcon className="text-2xl mt-[6px] text-text2" icon={faAngleLeft} />
+                                    </Link>
+                                </div>
+                                <Avatar className="w-10 h-10 my-5 mx-3 md:w-12 md:h-12 md:my-[16px] ">
+                                    <AvatarImage src="https://res.cloudinary.com/dyoctwffi/image/upload/v1691509569/ORGAVIVE/IMG_20210305_233004_ptwy9k.jpg" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
                             </div>
-                            <Avatar className="w-10 h-10 my-5 mx-3 md:w-12 md:h-12 md:my-[16px] ">
-                                <AvatarImage src="https://res.cloudinary.com/dyoctwffi/image/upload/v1691509569/ORGAVIVE/IMG_20210305_233004_ptwy9k.jpg" />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
+
+                            <div className="overflow-hidden">
+                                <h3 className="font-medium text-base leading-[80px] whitespace-nowrap md:text-lg md:mx-5 md:leading-[80px]">
+                                    Quang Khải
+                                </h3>
+                            </div>
                         </div>
 
-                        <div className="overflow-hidden">
-                            <h3 className="font-medium text-base leading-[80px] whitespace-nowrap md:text-lg md:mx-5 md:leading-[80px]">
-                                Quang Khải
-                            </h3>
+                        <div className="flex mr-5 h-[42px] my-[19px]">
+                            <FontAwesomeIcon
+                                className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
+                                icon={faTag}
+                                onClick={() => {
+                                    toast({
+                                        description: 'Chức năng đang cập nhật!',
+                                    });
+                                }}
+                            />
+                            <FontAwesomeIcon
+                                className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
+                                icon={faVideo}
+                                onClick={() => {
+                                    toast({
+                                        description: 'Chức năng đang cập nhật!',
+                                    });
+                                }}
+                            />
+                            <FontAwesomeIcon
+                                className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
+                                icon={faChalkboard}
+                                onClick={() => {
+                                    toast({
+                                        description: 'Chức năng đang cập nhật!',
+                                    });
+                                }}
+                            />
                         </div>
                     </div>
-
-                    <div className="flex mr-5 h-[42px] my-[19px]">
-                        <FontAwesomeIcon
-                            className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
-                            icon={faTag}
-                            onClick={() => {
-                                toast({
-                                    description: 'Chức năng đang cập nhật!',
-                                });
-                            }}
-                        />
-                        <FontAwesomeIcon
-                            className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
-                            icon={faVideo}
-                            onClick={() => {
-                                toast({
-                                    description: 'Chức năng đang cập nhật!',
-                                });
-                            }}
-                        />
-                        <FontAwesomeIcon
-                            className="text-lg text-text3 p-3 hover:cursor-pointer hover:text-text2"
-                            icon={faChalkboard}
-                            onClick={() => {
-                                toast({
-                                    description: 'Chức năng đang cập nhật!',
-                                });
-                            }}
-                        />
+                </div>
+                <div className="bg-slate-200 w-full flex-grow z-[1] overflow-y-auto">
+                    <div className="flex flex-col py-5">
+                        {messages.map((message) => (
+                            <div
+                                key={message.ConversationID}
+                                className={`min-h-10 max-w-[70%] min-w-28 mx-5 my-1 p-3 rounded-2xl ${
+                                    message.senderId === currentUserId
+                                        ? 'bg-blue-500 text-white ml-auto'
+                                        : 'bg-gray-300 mr-auto'
+                                }`}
+                            >
+                                <h3 className="leading-5">{message.message}</h3>
+                                <p className="text-xs mt-1">{new Date(message.timestamp).toLocaleTimeString()}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            </div>
-            <div className="bg-slate-200 w-full flex-grow z-[1] overflow-y-auto">
-                <div className="flex flex-col py-5">
-                    {messages.map((message) => (
-                        <div
-                            key={message.ConversationID}
-                            className={`min-h-10 max-w-[70%] min-w-28 mx-5 my-1 p-3 rounded-2xl ${
-                                message.senderId === currentUserId
-                                    ? 'bg-blue-500 text-white ml-auto'
-                                    : 'bg-gray-300 mr-auto'
-                            }`}
-                        >
-                            <h3 className="leading-5">{message.message}</h3>
-                            <p className="text-xs mt-1">{new Date(message.timestamp).toLocaleTimeString()}</p>
+                <div className="w-full z-10 bg-white">
+                    <div className="min-h-24 max-h-56  ">
+                        <div className="w-full h-10 border-b-blue-600">
+                            <Boxbar />
                         </div>
-                    ))}
-                </div>
-            </div>
-            <div className="w-full z-10 bg-white">
-                <div className="min-h-24 max-h-56  ">
-                    <div className="w-full h-10 border-b-blue-600">
-                        <Boxbar />
-                    </div>
-                    <div className="p-2 border-t border-gray-300 flex">
-                        <AutoResizeTextarea
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            placeholder="Type your message..."
-                        />
-                        <div className="group w-10 h-10 text-center py-[7px] rounded-[50%] hover:cursor-pointer">
-                            <FontAwesomeIcon className=" text-sky-400 group-hover:text-sky-600" icon={faArrowUp} />
+                        <div className="p-2 border-t border-gray-300 flex">
+                            <AutoResizeTextarea
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                placeholder="Type your message..."
+                            />
+                            <div className="group w-10 h-10 text-center py-[7px] rounded-[50%] hover:cursor-pointer">
+                                <FontAwesomeIcon className=" text-sky-400 group-hover:text-sky-600" icon={faArrowUp} />
+                            </div>
                         </div>
                     </div>
                 </div>

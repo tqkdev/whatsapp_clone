@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { Toaster } from '@/components/ui/toaster';
 
 config.autoAddCss = false;
 
@@ -16,13 +14,5 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en">
-            <body className="h-full">
-                {children}
-
-                <Toaster />
-            </body>
-        </html>
-    );
+    return <div className="h-full">{children}</div>;
 }
