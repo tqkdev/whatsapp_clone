@@ -1,39 +1,39 @@
 'use client';
 
 import React from 'react';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-
-const formSchema = z.object({
-    username: z.string().min(2).max(50),
-    email: z.string().email(),
-    password: z.string().min(6).max(100),
-    confirmPassword: z.string().min(6).max(100),
-});
+import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema';
 
 function FormRegister() {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<RegisterBodyType>({
+        resolver: zodResolver(RegisterBody),
         defaultValues: {
             username: '',
             email: '',
             password: '',
-            confirmPassword: '',
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    async function onSubmit(values: RegisterBodyType) {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/register`, {
+            body: JSON.stringify(values),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        }).then((res) => res.json());
+        console.log(result);
     }
+
     return (
         <div className="w-full">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
                     <FormField
                         control={form.control}
                         name="username"
@@ -78,7 +78,7 @@ function FormRegister() {
                         )}
                     />
 
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name="confirmPassword"
                         render={({ field }) => (
@@ -91,7 +91,7 @@ function FormRegister() {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    />
+                    /> */}
 
                     <Button type="submit">Register</Button>
                 </form>

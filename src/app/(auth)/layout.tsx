@@ -2,6 +2,7 @@
 
 import type { Metadata } from 'next';
 import '../globals.css';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
     title: 'Auth Pages',
@@ -13,5 +14,10 @@ export default function AuthLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return <div className="flex relative ">{children}</div>;
+    return (
+        <div className="flex relative ">
+            {children}
+            <Toaster />
+        </div>
+    );
 }
