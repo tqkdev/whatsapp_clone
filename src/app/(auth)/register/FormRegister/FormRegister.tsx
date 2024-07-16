@@ -8,8 +8,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema';
+import { useRouter } from 'next/navigation';
 
 function FormRegister() {
+    const router = useRouter();
     const form = useForm<RegisterBodyType>({
         resolver: zodResolver(RegisterBody),
         defaultValues: {
@@ -27,7 +29,7 @@ function FormRegister() {
             },
             method: 'POST',
         }).then((res) => res.json());
-        console.log(result);
+        router.push('/login');
     }
 
     return (

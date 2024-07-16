@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 function FormLogin() {
     const { toast } = useToast();
+    const router = useRouter();
     const form = useForm<LoginBodyType>({
         resolver: zodResolver(LoginBody),
         defaultValues: {
@@ -19,19 +21,6 @@ function FormLogin() {
             password: '',
         },
     });
-
-    // async function onSubmit(values: LoginBodyType) {
-    //     const result = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/login`, {
-    //         body: JSON.stringify(values),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         method: 'POST',
-    //         credentials: 'include',
-    //     }).then((res) => res.json());
-    //     console.log(result);
-    // }
-
     async function onSubmit(values: LoginBodyType) {
         try {
             const result = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/login`, {
@@ -49,6 +38,21 @@ function FormLogin() {
                 }
                 return data;
             });
+            await fetch('/api/auth', {
+                method: 'POST',
+                body: JSON.stringify(result),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(async (res) => {
+                const payload = await res.json();
+                const data = { status: res.status, payload };
+                if (!res.ok) {
+                    throw data;
+                }
+                return data;
+            });
+            router.push('/');
         } catch (error: any) {
             const errors = (error as any).payload.errors as { field: string; message: string }[];
             const status = error.status as number;
@@ -63,6 +67,7 @@ function FormLogin() {
                 toast({
                     title: 'Lỗi',
                     description: error.payload.message,
+                    variant: 'destructive',
                 });
             }
         }
