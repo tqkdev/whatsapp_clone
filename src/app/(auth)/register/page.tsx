@@ -3,8 +3,8 @@ import FormRegister from './FormRegister/FormRegister';
 
 function Login() {
     return (
-        <div className="w-full flex justify-center">
-            <div className="w-full mx-3 md:w-[50%] lg:w-[35%] mt-10 p-8 shadow-login">
+        <div className="w-full flex justify-center h-screen ">
+            <div className="w-full h-fit mx-3 md:w-[50%] lg:w-[35%] relative mt-10 p-8 shadow-login">
                 <div className="flex justify-center">
                     <div className="rounded-[50%] overflow-hidden">
                         <Image

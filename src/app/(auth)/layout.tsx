@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 import '../globals.css';
-import { Toaster } from '@/components/ui/toaster';
+// import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
     title: 'Auth Pages',
@@ -17,7 +17,7 @@ export default function AuthLayout({
     return (
         <div className="flex relative ">
             {children}
-            <Toaster />
+            {/* <Toaster /> */}
         </div>
     );
 }

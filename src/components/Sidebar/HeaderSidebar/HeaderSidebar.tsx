@@ -3,9 +3,34 @@ import { faEllipsisVertical, faMessage, faRightFromBracket } from '@fortawesome/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 function HeaderSidebar() {
     const { toast } = useToast();
+    const router = useRouter();
+
+    async function handleLogout() {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/logout`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Gửi kèm cookie
+                method: 'POSt',
+            });
+
+            const result = await response.json();
+            localStorage.removeItem('userID');
+            localStorage.removeItem('username');
+            router.push('/login');
+
+            if (!response.ok) {
+                throw new Error(result.message || 'Đã xảy ra lỗi');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <div className="h-12 flex justify-between ">
             <div className="h-12 w-[25%] ml-2">
@@ -37,6 +62,7 @@ function HeaderSidebar() {
                     <FontAwesomeIcon
                         className="text-lg text-text2 p-2 hover:cursor-pointer hover:text-text1 "
                         icon={faRightFromBracket}
+                        onClick={handleLogout}
                     />
                 </div>
             </div>
