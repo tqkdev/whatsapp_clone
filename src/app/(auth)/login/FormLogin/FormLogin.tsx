@@ -42,10 +42,7 @@ function FormLogin() {
             //     }
             //     return data;
             // });
-            // console.log(result);
             const result = await authApiRequest.login(values);
-            console.log(result);
-
             localStorage.setItem('userID', result.payload?.data?.id);
             localStorage.setItem('username', result.payload?.data?.user?.username);
 

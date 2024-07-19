@@ -3,19 +3,58 @@
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 
 function InputBox() {
-    const [newMessage, setNewMessage] = useState('');
+    const param = useParams();
+    const [message, setMessage] = useState('');
+    const conversationId = param.slug;
+    const currentUserId = localStorage.getItem('userID');
+
+    const handleSendMessage = async () => {
+        if (!message.trim()) return;
+
+        const newMessage = {
+            senderId: currentUserId,
+            content: message,
+            created_at: new Date().toISOString(),
+        };
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/messages/${conversationId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(newMessage),
+            });
+            console.log(newMessage);
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to send message');
+            }
+
+            setMessage('');
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    };
 
     return (
         <div className="p-2 border-t border-gray-300 flex">
             <input
                 className="p-2 w-full max-h-40 overflow-hidden border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-blue-400"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
             ></input>
-            <div className="group w-10 h-10 text-center py-[7px] rounded-[50%] hover:cursor-pointer">
+            <div
+                onClick={handleSendMessage}
+                className="group w-10 h-10 text-center py-[7px] rounded-[50%] hover:cursor-pointer"
+            >
                 <FontAwesomeIcon className="text-sky-400 group-hover:text-sky-600" icon={faArrowUp} />
             </div>
         </div>
