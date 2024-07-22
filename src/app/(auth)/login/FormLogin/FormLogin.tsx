@@ -52,6 +52,7 @@ function FormLogin() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
             }).then(async (res) => {
                 const payload = await res.json();
                 const data = { status: res.status, payload };
