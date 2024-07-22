@@ -3,9 +3,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { socket } from '@/Socket/socket';
+import ListSearch from './listSearch';
 
 function SidebarSearch() {
     // const [listuser, setListuser] = useState([]);
+    const [isFocused, setIsFocused] = useState(false);
+    const [searchValue, setsearchValue] = useState('');
     // const currentUserId = 'GoEHjfhEWMDIy90swKZC';
 
     // useEffect(() => {
@@ -70,7 +73,7 @@ function SidebarSearch() {
     // }, []);
 
     return (
-        <div className="border-t relative">
+        <div className="border-t ">
             <form className=" mx-1 my-3 h-10">
                 <label
                     htmlFor="default-search"
@@ -78,7 +81,7 @@ function SidebarSearch() {
                 >
                     Search
                 </label>
-                <div className="relative h-10">
+                <div className="relative h-10 flex ">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg
                             className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -101,31 +104,21 @@ function SidebarSearch() {
                         id="default-search"
                         className="block w-full h-10 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
                         placeholder="Search conversation"
+                        onChange={(e) => setsearchValue(e.target.value)}
+                        onFocus={() => setIsFocused(true)}
                         required
                     />
-                </div>
-            </form>
-            <div className=" w-full h-10 absolute  left-0">
-                {/* <div>
-                    {listuser?.map((user: any) => (
+                    {isFocused && (
                         <div
-                            key={user.id}
-                            onClick={() => handleSetinfo(user.id, user.username)}
-                            className="h-[70px] border-t flex hover:cursor-pointer hover:bg-slate-100"
+                            onClick={() => setIsFocused(false)}
+                            className="mx-4 leading-10 font-medium text-base hover:cursor-pointer"
                         >
-                            <div className="px-2">
-                                <Avatar className="w-12 h-12 my-[11px] md:w-10 md:h-10 md:my-[15px]">
-                                    <AvatarImage src="https://res.cloudinary.com/dyoctwffi/image/upload/v1691509569/ORGAVIVE/IMG_20210305_233004_ptwy9k.jpg" />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                </Avatar>
-                            </div>
-                            <div className="w-full overflow-hidden">
-                                <h3 className="font-medium text-lg leading-[70px] mx-2">{user.username}</h3>
-                            </div>
+                            Đóng
                         </div>
-                    ))}
-                </div> */}
-            </div>
+                    )}
+                </div>
+                {isFocused && <ListSearch searchValue={searchValue} setIsFocused={setIsFocused} />}
+            </form>
         </div>
     );
 }

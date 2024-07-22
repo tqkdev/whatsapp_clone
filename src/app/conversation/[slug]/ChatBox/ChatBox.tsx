@@ -13,8 +13,17 @@ interface Message {
 function ChatBox() {
     const param = useParams();
     const conversationId = param.slug;
-    const currentUserId = localStorage.getItem('userID');
+    // const currentUserId = props.currentUserId;
     const [messages, setMessages] = useState<Message[]>([]);
+
+    const [currentUserId, setCurrentUserId] = useState<string>('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const userId = localStorage.getItem('userID');
+            setCurrentUserId(userId ?? '');
+        }
+    }, []);
 
     useEffect(() => {
         // Join the conversation room
@@ -45,8 +54,6 @@ function ChatBox() {
 
         // Listen for new messages
         socket.on('newMessage', (newMessage: Message) => {
-            console.log('Sending newMessage:', newMessage);
-
             if (newMessage.ConversationId === conversationId) {
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
             }

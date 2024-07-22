@@ -26,7 +26,7 @@ function HeaderChat() {
 
                     <div className="overflow-hidden">
                         <h3 className="font-medium text-base leading-[80px] whitespace-nowrap md:text-lg md:mx-5 md:leading-[80px]">
-                            Quang Khải
+                            QK
                         </h3>
                     </div>
                 </div>

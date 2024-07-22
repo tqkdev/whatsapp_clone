@@ -17,10 +17,15 @@ interface Conversation {
 }
 
 function SidebarListConversation() {
-    const currentUserId = localStorage.getItem('userID');
-
+    // const currentUserId = localStorage.getItem('userID');
+    const currentUserId = 'GoEHjfhEWMDIy90swKZC';
     const [listConversation, setListConversation] = useState<Conversation[]>([]);
+
     useEffect(() => {
+        if (currentUserId) {
+            socket.emit('setUserId', currentUserId);
+        }
+
         // Listen for the 'allConversations' event
         socket.on('allConversations', (conversations) => {
             setListConversation(conversations);
@@ -72,7 +77,7 @@ function SidebarListConversation() {
                 >
                     <div className="px-2">
                         <Avatar className="w-12 h-12 my-[11px] md:w-10 md:h-10 md:my-[15px]">
-                            <AvatarImage src="https://res.cloudinary.com/dyoctwffi/image/upload/v1691509569/ORGAVIVE/IMG_20210305_233004_ptwy9k.jpg" />
+                            <AvatarImage src="https://res.cloudinary.com/dyoctwffi/image/upload/v1721403257/ORGAVIVE/avt_tpgoie.png" />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                     </div>

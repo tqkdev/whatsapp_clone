@@ -2,14 +2,22 @@
 
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 function InputBox() {
     const param = useParams();
     const [message, setMessage] = useState('');
     const conversationId = param.slug;
-    const currentUserId = localStorage.getItem('userID');
+    // const currentUserId = localStorage.getItem('userID');
+    const [currentUserId, setCurrentUserId] = useState<string>('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const userId = localStorage.getItem('userID');
+            setCurrentUserId(userId ?? '');
+        }
+    }, []);
 
     const handleSendMessage = async () => {
         if (!message.trim()) return;
@@ -29,7 +37,6 @@ function InputBox() {
                 credentials: 'include',
                 body: JSON.stringify(newMessage),
             });
-            console.log(newMessage);
 
             const result = await response.json();
 
