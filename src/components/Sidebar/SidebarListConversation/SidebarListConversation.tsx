@@ -17,8 +17,8 @@ interface Conversation {
 }
 
 function SidebarListConversation() {
-    // const currentUserId = localStorage.getItem('userID');
-    const currentUserId = 'GoEHjfhEWMDIy90swKZC';
+    const currentUserId = localStorage.getItem('userID');
+    // const currentUserId = 'GoEHjfhEWMDIy90swKZC';
     const [listConversation, setListConversation] = useState<Conversation[]>([]);
 
     useEffect(() => {
