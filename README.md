@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+whatsapp_clone là một ứng dụng web được xây dựng bằng Next.js với TypeScript, Tailwind CSS và Socket.IO. Nó bao gồm các chức năng quản lý người dùng và cuộc trò chuyện, với khả năng giao tiếp thời gian thực.
+## Dự án gồm các chức năng
+<p>Auth: Đăng kí, đăng nhập, đăng xuất</p>
+<p>Tìm kiếm người dùng</p>
+<p>Hiển thị tất các cuộc hội thoại</p>
+<p>Tạo cuộc trò chuyện và nhắn tin với thời gian thực</p>
 
-## Getting Started
 
-First, run the development server:
+## Sử dụng Tailwind CSS
+Dự án sử dụng Tailwind CSS để tạo kiểu cho các thành phần giao diện người dùng. Các cấu hình cho Tailwind được đặt trong file tailwind.config.js và các tệp CSS toàn cục được đặt trong thư mục styles.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Sử dụng Socket.IO
+Socket.IO được cấu hình trong file utils/socket.ts và được sử dụng trong các thành phần để lắng nghe và phát các sự kiện thời gian thực.
