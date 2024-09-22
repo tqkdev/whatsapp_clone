@@ -54,7 +54,13 @@ const config = {
                 text2: '#666',
                 text3: '#999',
                 text4: '#eeeeee',
+                text5: '#f7f7f8',
             },
+            height: {
+                'screen-input': 'calc(100vh - 65px)',
+                'screen-form': 'calc(100vh - 35px)',
+            },
+
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
@@ -69,10 +75,22 @@ const config = {
                     from: { height: 'var(--radix-accordion-content-height)' },
                     to: { height: '0' },
                 },
+                fadeOut: {
+                    '0%': {
+                        opacity: '1',
+                    },
+                    '70%': {
+                        opacity: '1',
+                    },
+                    '100%': {
+                        opacity: '0',
+                    },
+                },
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
+                fadeOut: ' fadeOut 2s forwards',
             },
             boxShadow: {
                 login: '0px 0px 10px 1px rgb(0 0 0 / 0.1)',

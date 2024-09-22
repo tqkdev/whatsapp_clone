@@ -3,8 +3,7 @@ import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { Toaster } from '@/components/ui/toaster';
-// import AppProvider from './AppProvider/AppProvider';
-import { cookies } from 'next/headers';
+import { Providers } from './AppProvider';
 
 config.autoAddCss = false;
 
@@ -18,14 +17,10 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // const cookieStore = cookies();
-    // const accessToken = cookieStore.get('accessToken');
     return (
         <html lang="en">
             <body className="h-full">
-                {/* <AppProvider inititalaccessToken={accessToken?.value}>{children}</AppProvider> */}
-                {children}
-
+                <Providers>{children}</Providers>
                 <Toaster />
             </body>
         </html>

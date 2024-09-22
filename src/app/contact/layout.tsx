@@ -17,8 +17,8 @@ export default function RootLayout({
 }>) {
     return (
         <div className="h-full">
-            <Providers>{children}</Providers>
             {/* {children} */}
+            <Providers>{children}</Providers>
         </div>
     );
 }

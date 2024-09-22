@@ -51,15 +51,14 @@ function ListSearch(props: ListSearchProps) {
 
         fetchListuser();
     }, [debounce, currentUserId]);
-
     return (
-        <div className=" absolute h-screen flex flex-col z-[-1] top-[-4px] w-full left-0  ">
-            <div className="w-full mt-[125px] bg-transparent"></div>
-            <div className="overflow-y-auto  flex-grow bg-white relative">
+        <div className="h-screen-input mt-[10px] bg-white">
+            <div className="overflow-y-auto h-full flex-grow relative">
                 {/*  */}
                 {IsLoading && <Loading />}
 
                 {/*  */}
+
                 {listuser?.map((conversation: any) => {
                     const participants = conversation.participants;
 
@@ -97,6 +96,8 @@ function ListSearch(props: ListSearchProps) {
                         </Link>
                     );
                 })}
+
+                {/*  */}
             </div>
         </div>
     );

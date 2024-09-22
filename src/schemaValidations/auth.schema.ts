@@ -48,6 +48,8 @@ export const LoginRes = z.object({
                 seconds: z.number(),
                 nanoseconds: z.number(),
             }),
+            avatarUrl: z.string(),
+            gender: z.string(),
         }),
     }),
     message: z.string(),
@@ -55,3 +57,124 @@ export const LoginRes = z.object({
 
 export type LoginBodyType = z.TypeOf<typeof LoginBody>;
 export type LoginResType = z.TypeOf<typeof LoginRes>;
+
+export interface UserRequest {
+    requestId: string;
+    senderId: string;
+    senderInfo: {
+        id: string;
+        userInfo: {
+            gender: string;
+            username: string;
+            avatarUrl: string;
+            dateOfBirth: string;
+        };
+    };
+}
+
+export interface User {
+    userId: string;
+    username: string;
+    gender: string;
+    created_at: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    dateOfBirth: string;
+    avatarUrl: string;
+    email: string;
+}
+
+export interface ListFriend {
+    id: string;
+    userInfo: {
+        username: string;
+        avatarUrl: string;
+        gender: string;
+        dateOfBirth: string;
+    };
+}
+export interface Message {
+    content: string;
+    imageUrl: string;
+    ChatId: string;
+    senderId: string;
+    id: string;
+    created_at: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    senderInfo: {
+        id: string;
+        userInfo: {
+            username: string;
+            avatarUrl: string;
+            gender: string;
+            dateOfBirth: string;
+        };
+    };
+}
+
+// export interface Message {
+//     messageId: string;
+//     messageData: {
+//         ChatId: string;
+//         imageUrl: string;
+//         senderId: string;
+//         created_at: {
+//             seconds: number;
+//             nanoseconds: number;
+//         };
+//         content: string;
+//     };
+//     senderInfo: SenderInfo;
+// }
+
+// export interface SenderInfo {
+//     id: string;
+//     userInfo: {
+//         avatarUrl: string;
+//         dateOfBirth: string;
+//         username: string;
+//         gender: string;
+//     };
+// }
+
+export interface Member {
+    id: string;
+    username: string;
+    userInfo: {
+        username: string;
+        dateOfBirth: string;
+        gender: string;
+        avatarUrl: string;
+    };
+}
+export interface Chat {
+    name?: string; // Đặt là optional
+    createdBy: string;
+    created_at: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    participants: Member[];
+    avatarUrl?: string; // Đặt là optional
+}
+
+export interface infoUser {
+    email: string;
+    avatarUrl: string;
+    dateOfBirth: string;
+    username: string;
+    gender: string;
+}
+export interface Participant {
+    id: string;
+    username: string;
+}
+
+export interface Conversation {
+    id: string;
+    participants: Participant[];
+    messages: any[];
+}

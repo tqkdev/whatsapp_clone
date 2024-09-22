@@ -1,76 +1,11 @@
 'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { socket } from '@/Socket/socket';
+import { useState } from 'react';
+
 import ListSearch from './listSearch';
 
 function SidebarSearch() {
-    // const [listuser, setListuser] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
     const [searchValue, setsearchValue] = useState('');
-    // const currentUserId = 'GoEHjfhEWMDIy90swKZC';
-
-    // useEffect(() => {
-    //     async function fetchListuser() {
-    //         try {
-    //             const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/users`, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //             });
-
-    //             const result = await response.json();
-
-    //             if (!response.ok) {
-    //                 throw new Error(result.message || 'Đã xảy ra lỗi');
-    //             }
-
-    //             setListuser(result.data);
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     }
-
-    //     fetchListuser();
-    // }, []);
-
-    // const handleSetinfo = async (user2Id: string, username2: string) => {
-    //     const datares = {
-    //         user1Id: currentUserId,
-    //         user2Id: user2Id,
-    //         username1: 'user1',
-    //         username2: username2,
-    //     };
-
-    //     console.log(datares);
-
-    //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/conversation`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         credentials: 'include', // Gửi kèm cookie
-    //         body: JSON.stringify(datares),
-    //     });
-
-    //     const data = await response.json();
-
-    //     // Hàm xử lý sự kiện Socket.IO
-    //     const handleNewConversation = (newConversation: any) => {
-    //         console.log('New conversation:', newConversation);
-    //     };
-
-    //     // Lắng nghe sự kiện 'newConversation' chỉ một lần
-    //     socket.once('newConversation', handleNewConversation);
-    // };
-
-    // // Cleanup listener to avoid multiple event bindings
-    // useEffect(() => {
-    //     return () => {
-    //         socket.off('newConversation');
-    //     };
-    // }, []);
 
     return (
         <div className="border-t ">
@@ -117,7 +52,7 @@ function SidebarSearch() {
                         </div>
                     )}
                 </div>
-                {isFocused && <ListSearch searchValue={searchValue} setIsFocused={setIsFocused} />}
+                {isFocused && <ListSearch searchValue={searchValue} />}
             </form>
         </div>
     );

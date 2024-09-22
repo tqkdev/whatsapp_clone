@@ -12,11 +12,21 @@ import { LoginBody, LoginBodyType } from '@/schemaValidations/auth.schema';
 import { useToast } from '@/components/ui/use-toast';
 import Loading from '@/components/Loading/Loading';
 import authApiRequest from '@/utils/request';
+import { useDispatch } from 'react-redux';
+import {
+    setUsername,
+    setcurrentUserId,
+    // setcurrentUserAvatar,
+    setcurrentUserGender,
+} from '@/app/redux/slices/userSlice';
 
 function FormLogin() {
     const [IsLoader, setIsLoader] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
+
+    const dispatch = useDispatch();
+
     const form = useForm<LoginBodyType>({
         resolver: zodResolver(LoginBody),
         defaultValues: {
@@ -27,24 +37,17 @@ function FormLogin() {
     async function onSubmit(values: LoginBodyType) {
         setIsLoader(true);
         try {
-            // const result = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/login`, {
-            //     body: JSON.stringify(values),
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     method: 'POST',
-            //     credentials: 'include',
-            // }).then(async (res) => {
-            //     const payload = await res.json();
-            //     const data = { status: res.status, payload };
-            //     if (!res.ok) {
-            //         throw data;
-            //     }
-            //     return data;
-            // });
             const result = await authApiRequest.login(values);
-            localStorage.setItem('userID', result.payload?.data?.id);
-            localStorage.setItem('username', result.payload?.data?.user?.username);
+            const userId = result.payload?.data?.id;
+            const username = result.payload?.data?.user?.username;
+            // const avatar = result.payload?.data?.user?.avatarUrl;
+            const gender = result.payload?.data?.user?.gender;
+
+            // Lưu userId và username vào Redux
+            dispatch(setcurrentUserId(userId));
+            dispatch(setUsername(username));
+            // dispatch(setcurrentUserAvatar(avatar));
+            dispatch(setcurrentUserGender(gender));
 
             await fetch('/api/auth', {
                 method: 'POST',
